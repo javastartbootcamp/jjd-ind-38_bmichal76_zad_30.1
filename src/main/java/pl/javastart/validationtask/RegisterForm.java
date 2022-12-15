@@ -1,40 +1,44 @@
 package pl.javastart.validationtask;
 
-import org.springframework.validation.annotation.Validated;
-import pl.javastart.validationtask.validators.minfieldlength.MinFieldLength;
-import pl.javastart.validationtask.validators.password.Password;
-import pl.javastart.validationtask.validators.postcodepl.PostCodePl;
+import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
-import javax.validation.constraints.*;
+@Entity
+public class RegisterForm {
 
-@Validated
-public class RegisterFormDto {
-
-    private static final String EMPTY_MSG = "Pole nie może być puste";
-    @NotEmpty(message = EMPTY_MSG)
-    @MinFieldLength(size = 3)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Size(min = 3, max = 100)
+    @Column(nullable = false, length = 100)
     private String firstName;
-    @NotEmpty(message = EMPTY_MSG)
-    @MinFieldLength(size = 3)
+    @Size(min = 3, max = 100)
+    @Column(nullable = false, length = 100)
     private String surname;
-    @NotEmpty(message = EMPTY_MSG)
+    @Column(nullable = false, length = 100)
     private String address;
-    @NotEmpty(message = EMPTY_MSG)
-    @PostCodePl
+    @Column(nullable = false, length = 10)
     private String postalCode;
-    @NotEmpty(message = EMPTY_MSG)
+    @Column(nullable = false, length = 100)
     private String city;
-    @NotEmpty(message = EMPTY_MSG)
-    @Email(regexp = "^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@"
-            + "[^-][A-Za-z0-9\\+-]+(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$",
-            message = "musi być poprawnie sformatowanym adresem e-mail")
+    @Email
+    @Column(nullable = false, length = 100)
     private String email;
-    @NotEmpty(message = EMPTY_MSG)
-    @MinFieldLength(size = 8)
-    @Password
+    @Size(min = 8, max = 100)
+    @Column(nullable = false, length = 100)
     private String password;
-    @AssertTrue(message = "Akceptacja regulaminu jest wymagana")
+    @AssertTrue
     private boolean termsAgreement;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
