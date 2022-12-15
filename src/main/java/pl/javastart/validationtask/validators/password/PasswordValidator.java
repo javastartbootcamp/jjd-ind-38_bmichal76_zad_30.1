@@ -3,6 +3,7 @@ package pl.javastart.validationtask.validators.password;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
@@ -24,7 +25,9 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
                 upper = true;
             } else if (Character.isLowerCase(c)) {
                 low = true;
-            } else if (!escapeChars.stream().filter(character -> character.equals(c)).toList().isEmpty()) {
+            } else if (!escapeChars.stream()
+                    .filter(character -> character.equals(c))
+                    .collect(Collectors.toList()).isEmpty()) {
                 spec = true;
             }
         }

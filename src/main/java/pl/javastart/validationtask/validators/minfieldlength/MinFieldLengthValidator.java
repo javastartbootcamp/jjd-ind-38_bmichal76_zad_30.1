@@ -35,10 +35,6 @@ public class MinFieldLengthValidator implements ConstraintValidator<MinFieldLeng
     }
 
     private void setMessage(ConstraintValidatorContext cvc, String str) {
-        customMessageForValidation(cvc, str);
-    }
-
-    private void customMessageForValidation(ConstraintValidatorContext cvc, String message) {
-        cvc.buildConstraintViolationWithTemplate(message).addConstraintViolation();
+        cvc.buildConstraintViolationWithTemplate(str).addConstraintViolation();
     }
 }
